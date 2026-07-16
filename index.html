@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="./index.css">
+  <title>Frontend Mentor | Contact form</title>
+
+</head>
+<body>
+
+  <main>
+    <div class="success-state hidden">
+      <span class="">
+        <img src="./assets/images/icon-success-check.svg" alt="">
+        Message Sent!
+      </span>
+      <p>
+        Thanks for completing the form. We'll be in touch soon!
+      </p>
+    </div>
+
+    <div class="container">
+
+        <header>
+          <h1>Contact Us</h1>
+        </header>
+        <form id="form-contact" action="submit">
+          <div class="wrapper-content">
+
+            <div class="wrapper-name">
+              <div class="wrapper-first-name wrapper-value">
+                <label for="first-name">First Name</label>
+                <input class="field-typing name" type="text" id="first-name">
+                <span class="error-msg hidden">This field is required</span>
+              </div>
+              <div class="wrapper-last-name wrapper-value">
+                <label for="last-name">Last Name</label>
+                <input class="field-typing name" type="text" id="last-name">
+                <span class="error-msg hidden">This field is required</span>
+              </div>
+            </div>
+            <div class="wrapper-email wrapper-value">
+              <label for="email">Email Address</label>
+              <input class="field-typing email" type="text" id="email">
+              <span class="error-msg hidden">This field is required</span>
+              <span class="error-msg error-msg-email hidden">Please enter a valid email address</span>
+            </div>
+            <div class="wrapper-query wrapper-value">  
+              <legend >Query Type</legend>
+              <div class="wrapper-query-content">
+                <div class="wrapper-query-item">
+                  
+                  <input type="radio" name="query-type" id="general-enquiry" value="general-enquiry">
+                  <label for="general-enquiry"><span class="check-radio"></span>General Enquiry</label>
+                </div>
+                <div class="wrapper-query-item">
+                  
+                  <input type="radio" name="query-type" id="support-request" value="support-request">
+                  <label for="support-request"><span class="check-radio"></span>Support Request</label>
+                </div>
+              </div>
+              <span class="error-msg hidden">Please select a query type</span>
+            </div>
+    
+            <div class="wrapper-msg wrapper-value">
+              <label for="message">Message</label>
+              <textarea class="field-typing" name="message" id="message"></textarea>
+              <span class="error-msg hidden">This field is required</span>
+            </div>
+    
+            <div class="wrapper-agree wrapper-value">
+              <div class="wrapper-check">
+                <label class="checkbox" for="agree">
+                  <input type="checkbox" name="agree" id="agree">
+                  <span class="checkmark"></span>
+                  I consent to being contacted by the team</label>
+              </div>
+              <br>
+              <span class="error-msg hidden">To submit this form, please consent to being contacted</span>
+            </div>
+            
+            <button>Submit</button>
+          </div>
+        </form>
+    
+    
+      </main>
+    </div>
+
+  <footer class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </footer>
+
+  <script src="./index.js"></script>
+</body>
+</html>
