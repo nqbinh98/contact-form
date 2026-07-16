@@ -68,7 +68,7 @@ main {
 }
 
 header {
-   margin-bottom: 1rem; 
+    margin-block-end: clamp(0.6rem, 0.6rem + 2vw, 1.2rem);
    color: var(--grey-900);
 }
 
@@ -115,7 +115,7 @@ header {
 .wrapper-content {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: clamp(0.4rem, 0.6rem + 2vw, 1.2rem);
 }
 
 .wrapper-name {
@@ -123,10 +123,8 @@ header {
     gap: 1rem;
 }
 
-#content-query {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.wrapper-query {
+    border: none;
 }
 
 .wrapper-query-content {
@@ -139,12 +137,21 @@ header {
     border: 1px solid var(--grey-500);
     padding: 0 0.8rem;
     border-radius: 8px;
+    cursor: pointer;
+}
+
+.wrapper-query-item:focus-within {
+    border: 1.5px solid var(--green-600);
+}
+
+.wrapper-query-item:hover {
+    border: 1.5px solid var(--green-600);
 }
 
 .wrapper-query-item label{
     padding: 1rem 0;
     width: 100%;
-      display: flex;
+    display: flex;
     align-items: center;
     gap: 1rem;
 }
@@ -153,8 +160,12 @@ header {
     background-color: var(--green-200);
     border: 1.5px solid var(--green-600);
 }
-input[name='query-type'] {
-    display: none;
+
+input[type='radio'] {
+    opacity: 0; 
+    position: absolute;
+    width: 1px; 
+    height: 1px;
 }
 
 .check-radio {
@@ -171,7 +182,6 @@ input[name='query-type'] {
     border: none;
     width: 13px;
     height: 13px;
-
 }
 
 
