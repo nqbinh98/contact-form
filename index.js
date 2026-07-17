@@ -2,7 +2,7 @@ const successState = document.querySelector('.success-state');
 const formContact = document.querySelector('#form-contact');
 const allWrapperValue = document.querySelectorAll('.wrapper-value');
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-let saveData = {
+const saveData = {
     firstName: '',
     lastName: '',
     email: '',
@@ -10,7 +10,7 @@ let saveData = {
     message: '',
     agree: false,
 }
-
+let validSuccess;
 formContact.addEventListener('submit', function (e) {
     e.preventDefault();
     allWrapperValue.forEach(element => {

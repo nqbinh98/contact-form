@@ -15,10 +15,11 @@
     --grey-900: hsl(187, 24%, 22%);
 
     --attribution-color: hsl(228, 45%, 44%);
+    --radio-color: #999;
 }
 
 body {
-    font-size: 1rem;
+    font-size: clamp(0.8rem, 0.8rem + 8vw, 1rem);
     font-family: 'Karla', sans-serif;
 }
 
@@ -64,7 +65,7 @@ main {
 .success-state p {
     color: var(--green-200);
     font-size: 0.8rem;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.03rem;
 }
 
 header {
@@ -81,12 +82,28 @@ header {
     border-radius: 1rem;
 }
 
-#form-contact {
+.contact-form {
     color: var(--grey-900);
+}
+
+label::after {
+    content: " *";
+    color: var(--green-600);
 }
 
 .error-msg {
     color: var(--red-color)
+}
+
+.field-typing {
+    outline: var(--green-600);
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin: 0.8rem 0 0.5rem;
+    border: 1px solid var(--grey-500);
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .field-typing.error-border { 
@@ -99,17 +116,6 @@ header {
 
 .field-typing:focus {
     border: 1.5px solid var(--green-600);
-}
-
-.field-typing {
-    outline: var(--green-600);
-    width: 100%;
-    font-size: 1rem;
-    padding: 0.5rem;
-    margin: 0.8rem 0 0.5rem;
-    border: 1px solid var(--grey-500);
-    border-radius: 8px;
-    cursor: pointer;
 }
 
 .wrapper-content {
@@ -172,7 +178,7 @@ input[type='radio'] {
     display: block;
     width: 13px;
     height: 13px;
-    border: 1px solid #999;
+    border: 1px solid var(--radio-color);
     border-radius: 50%;
     background: white;
 }
@@ -195,8 +201,8 @@ textarea {
 
 .checkbox {
     display: flex;
-    gap: 1rem;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .checkmark {
@@ -205,6 +211,7 @@ textarea {
     height: 20px;
     border: 1.5px solid #999;
     background: white;
+    margin-inline-end: 0.5rem;
 }
 
 #agree:checked + .checkmark {
@@ -245,4 +252,10 @@ button {
     .wrapper-name {
         grid-template-columns: 1fr 1fr;
     }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .success-state {
+    animation: none;
+  }
 }

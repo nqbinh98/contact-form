@@ -27,9 +27,8 @@
         <header>
           <h1>Contact Us</h1>
         </header>
-        <form id="form-contact" action="submit">
+        <form id="form-contact" class="contact-form" action="#">
           <div class="wrapper-content">
-
             <div class="wrapper-name">
               <div class="wrapper-first-name wrapper-value">
                 <label for="first-name">First Name</label>
@@ -52,7 +51,6 @@
               <legend >Query Type</legend>
               <div class="wrapper-query-content">
                 <div class="wrapper-query-item">
-                  
                   <input type="radio" name="query-type" id="general-enquiry" value="general-enquiry">
                   <label for="general-enquiry"><span class="check-radio"></span>General Enquiry</label>
                 </div>
@@ -64,16 +62,14 @@
               </div>
               <span class="error-msg hidden">Please select a query type</span>
             </fieldset>
-    
             <div class="wrapper-msg wrapper-value">
               <label for="message">Message</label>
               <textarea class="field-typing" name="message" id="message"></textarea>
               <span class="error-msg hidden">This field is required</span>
             </div>
-    
             <div class="wrapper-agree wrapper-value">
               <div class="wrapper-check">
-                <label class="checkbox" for="agree">
+                <label class="checkbox">
                   <input type="checkbox" name="agree" id="agree">
                   <span class="checkmark"></span>
                   I consent to being contacted by the team</label>
@@ -81,20 +77,15 @@
               <br>
               <span class="error-msg hidden">To submit this form, please consent to being contacted</span>
             </div>
-            
-            <button>Submit</button>
+            <button type="submit">Submit</button>
           </div>
         </form>
-    
-    
       </main>
     </div>
-
   <footer class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
     Coded by <a href="#">Your Name Here</a>.
   </footer>
-
   <script src="./index.js"></script>
 </body>
 </html>
