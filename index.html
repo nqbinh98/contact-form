@@ -27,23 +27,23 @@
         <header>
           <h1>Contact Us</h1>
         </header>
-        <form id="form-contact" class="contact-form" action="#">
+        <form novalidate id="form-contact" class="contact-form" action="#">
           <div class="wrapper-content">
             <div class="wrapper-name">
               <div class="wrapper-first-name wrapper-value">
                 <label for="first-name">First Name</label>
-                <input class="field-typing name" type="text" id="first-name">
+                <input required class="field-typing name" type="text" id="first-name">
                 <span class="error-msg hidden">This field is required</span>
               </div>
               <div class="wrapper-last-name wrapper-value">
                 <label for="last-name">Last Name</label>
-                <input class="field-typing name" type="text" id="last-name">
+                <input required class="field-typing name" type="text" id="last-name">
                 <span class="error-msg hidden">This field is required</span>
               </div>
             </div>
             <div class="wrapper-email wrapper-value">
               <label for="email">Email Address</label>
-              <input class="field-typing email" type="text" id="email">
+              <input required class="field-typing email" type="text" id="email">
               <span class="error-msg hidden">This field is required</span>
               <span class="error-msg error-msg-email hidden">Please enter a valid email address</span>
             </div>
@@ -51,12 +51,12 @@
               <legend >Query Type</legend>
               <div class="wrapper-query-content">
                 <div class="wrapper-query-item">
-                  <input type="radio" name="query-type" id="general-enquiry" value="general-enquiry">
+                  <input required type="radio" name="query-type" id="general-enquiry" value="general-enquiry">
                   <label for="general-enquiry"><span class="check-radio"></span>General Enquiry</label>
                 </div>
                 <div class="wrapper-query-item">
                   
-                  <input type="radio" name="query-type" id="support-request" value="support-request">
+                  <input required type="radio" name="query-type" id="support-request" value="support-request">
                   <label for="support-request"><span class="check-radio"></span>Support Request</label>
                 </div>
               </div>
@@ -70,7 +70,7 @@
             <div class="wrapper-agree wrapper-value">
               <div class="wrapper-check">
                 <label class="checkbox">
-                  <input type="checkbox" name="agree" id="agree">
+                  <input required type="checkbox" name="agree" id="agree" class="agree">
                   <span class="checkmark"></span>
                   I consent to being contacted by the team</label>
               </div>

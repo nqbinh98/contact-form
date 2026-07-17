@@ -14,12 +14,12 @@ let validSuccess;
 formContact.addEventListener('submit', function (e) {
     e.preventDefault();
     allWrapperValue.forEach(element => {
-        let firstNameElement = element.querySelector('input[type="text"]#first-name'); 
-        let lastNameElement = element.querySelector('input[type="text"]#last-name'); 
-        let emailElement = element.querySelector('input[type="text"]#email'); 
-        let wrapperQueryElement = element.querySelector('.wrapper-query-content');
-        let textareaElement = element.querySelector('textarea');
-        let checkboxElement = element.querySelector('input[name="agree"]'); 
+        const firstNameElement = element.querySelector('input[type="text"]#first-name'); 
+        const lastNameElement = element.querySelector('input[type="text"]#last-name'); 
+        const emailElement = element.querySelector('input[type="text"]#email'); 
+        const wrapperQueryElement = element.querySelector('.wrapper-query-content');
+        const textareaElement = element.querySelector('textarea');
+        const checkboxElement = element.querySelector('input[name="agree"]'); 
         if (firstNameElement) {
             validate(element, firstNameElement);
         } else if (lastNameElement) {
@@ -37,7 +37,6 @@ formContact.addEventListener('submit', function (e) {
     validSuccess = true;
     for (const key in saveData) {
         if (!saveData[key]) {
-            console.log(saveData[key])
             validSuccess = false;
         }
     }
@@ -53,13 +52,13 @@ function validate (parentElement, validateElement) {
         if (validateElement.value.trim()) {
             if (validateElement.id === 'email') {
                 if (emailRegex.test(validateElement.value.trim())) {
-                    handleError(parentElement, false, true);
+                    handleError(parentElement, validateElement, false, true);
                     saveData.email = validateElement.value.trim();
                 } else {
-                    handleError(parentElement, true, true);
+                    handleError(parentElement, validateElement, true, true);
                 }
             } else {
-                handleError(parentElement, false);
+                handleError(parentElement, validateElement, false);
                 if (validateElement.id === 'first-name') {
                     saveData.firstName = validateElement.value.trim();
                 }
@@ -69,7 +68,7 @@ function validate (parentElement, validateElement) {
             }
         } 
         else {
-            handleError(parentElement, true);
+            handleError(parentElement, validateElement, true);
         }
     } 
     // else if (validateElement.type === 'email') {
@@ -82,32 +81,31 @@ function validate (parentElement, validateElement) {
     //     }
     // } 
     else if (validateElement.classList.contains('wrapper-query-content')) {
-        console.log("check query type")
         if (validateElement.querySelector('input:checked')) {
-            handleError(parentElement, false);
+            handleError(parentElement, validateElement, false);
             saveData.queryType = validateElement.querySelector('input:checked').value;
         } else {
-            handleError(parentElement, true);
+            handleError(parentElement, validateElement, true);
         }
     } else if (validateElement.name === 'agree') {
         if (validateElement.checked) {
-            handleError(parentElement, false);
+            handleError(parentElement, validateElement, false);
             saveData.agree = true;
         } else {
-            handleError(parentElement, true);
+            handleError(parentElement, validateElement, true);
         }
     } else if (validateElement.name === 'message') {
         if (validateElement.value.trim()) {
-            handleError(parentElement, false);
+            handleError(parentElement, validateElement, false);
             saveData.message = validateElement.value.trim();
         } else {
-            handleError(parentElement, true);
+            handleError(parentElement, validateElement, true);
         }
     }
 
 }
 
-function handleError (element, isError, errorEmail) {
+function handleError (element, validateElement, isError, errorEmail) {
     let spanElementError = element.querySelector('.error-msg')
     let spanEmailElement = element.querySelector('.error-msg.error-msg-email')
     let elementShowError = null; 
@@ -124,22 +122,23 @@ function handleError (element, isError, errorEmail) {
             fieldTyping.classList.add('error-border');
         }
         elementShowError.classList.remove('hidden');
+        validateElement.setAttribute('aria-invalid', true);
     } else {
         if (fieldTyping) {
             fieldTyping.classList.remove('error-border');
         }
         elementShowError.classList.add('hidden');
+        validateElement.setAttribute('aria-invalid', false);
     }
 }
 
 function checkValidSuccess (result) {
-    console.log('check valid success')
     if (result) {
         formContact.reset();
         successState.classList.remove('hidden');
         setTimeout(function () {
             successState.classList.add('hidden');
-        }, 2000)
+        }, 5000)
     } else {
         successState.classList.add('hidden');
     }
