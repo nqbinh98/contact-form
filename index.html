@@ -10,7 +10,6 @@
 
 </head>
 <body>
-
   <main>
     <div class="success-state hidden">
       <span class="">
@@ -32,31 +31,29 @@
             <div class="wrapper-name">
               <div class="wrapper-first-name wrapper-value">
                 <label for="first-name">First Name</label>
-                <input required class="field-typing name" type="text" id="first-name">
+                <input required class="field-typing name value-validate" type="text" id="first-name">
                 <span class="error-msg hidden">This field is required</span>
               </div>
               <div class="wrapper-last-name wrapper-value">
                 <label for="last-name">Last Name</label>
-                <input required class="field-typing name" type="text" id="last-name">
+                <input required class="field-typing name value-validate" type="text" id="last-name">
                 <span class="error-msg hidden">This field is required</span>
               </div>
             </div>
             <div class="wrapper-email wrapper-value">
               <label for="email">Email Address</label>
-              <input required class="field-typing email" type="text" id="email">
+              <input required class="field-typing email value-validate" type="text" id="email" data-validate="email">
               <span class="error-msg hidden">This field is required</span>
-              <span class="error-msg error-msg-email hidden">Please enter a valid email address</span>
-            </div>
+             </div>
             <fieldset class="wrapper-query wrapper-value">  
               <legend >Query Type</legend>
-              <div class="wrapper-query-content">
+              <div class="wrapper-query-content value-validate" data-validate="radio">
                 <div class="wrapper-query-item">
-                  <input required type="radio" name="query-type" id="general-enquiry" value="general-enquiry">
+                  <input required type="radio" name="query-type" id="general-enquiry" value="general-enquiry" data-validate="radio">
                   <label for="general-enquiry"><span class="check-radio"></span>General Enquiry</label>
                 </div>
                 <div class="wrapper-query-item">
-                  
-                  <input required type="radio" name="query-type" id="support-request" value="support-request">
+                  <input required type="radio" name="query-type" id="support-request" value="support-request" data-validate="radio">
                   <label for="support-request"><span class="check-radio"></span>Support Request</label>
                 </div>
               </div>
@@ -64,13 +61,13 @@
             </fieldset>
             <div class="wrapper-msg wrapper-value">
               <label for="message">Message</label>
-              <textarea class="field-typing" name="message" id="message"></textarea>
+              <textarea class="field-typing value-validate" name="message" id="message"></textarea>
               <span class="error-msg hidden">This field is required</span>
             </div>
             <div class="wrapper-agree wrapper-value">
               <div class="wrapper-check">
                 <label class="checkbox">
-                  <input required type="checkbox" name="agree" id="agree" class="agree">
+                  <input required type="checkbox" name="agree" id="agree" class="agree value-validate" data-validate="checkbox">
                   <span class="checkmark"></span>
                   I consent to being contacted by the team</label>
               </div>

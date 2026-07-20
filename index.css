@@ -45,7 +45,7 @@ main {
 
 @keyframes success {
     0% {
-        top: -50px;
+        top: -3rem;
         opacity: 0;
     }
     
@@ -70,7 +70,7 @@ main {
 
 header {
     margin-block-end: clamp(0.6rem, 0.6rem + 2vw, 1.2rem);
-   color: var(--grey-900);
+    color: var(--grey-900);
 }
 
 .container {
@@ -213,7 +213,7 @@ textarea {
     margin-inline-end: 0.5rem;
 }
 
-#agree:checked + .checkmark {
+.agree:checked + .checkmark {
     background: url("./assets/images/icon-checkbox-check.svg") center/cover no-repeat;
     border: none;
     width: 20px;

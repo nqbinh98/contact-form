@@ -1,7 +1,7 @@
 const successState = document.querySelector('.success-state');
 const formContact = document.querySelector('#form-contact');
 const allWrapperValue = document.querySelectorAll('.wrapper-value');
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 const saveData = {
     firstName: '',
     lastName: '',
@@ -10,125 +10,99 @@ const saveData = {
     message: '',
     agree: false,
 }
-let validSuccess;
-formContact.addEventListener('submit', function (e) {
-    e.preventDefault();
-    allWrapperValue.forEach(element => {
-        const firstNameElement = element.querySelector('input[type="text"]#first-name'); 
-        const lastNameElement = element.querySelector('input[type="text"]#last-name'); 
-        const emailElement = element.querySelector('input[type="text"]#email'); 
-        const wrapperQueryElement = element.querySelector('.wrapper-query-content');
-        const textareaElement = element.querySelector('textarea');
-        const checkboxElement = element.querySelector('input[name="agree"]'); 
-        if (firstNameElement) {
-            validate(element, firstNameElement);
-        } else if (lastNameElement) {
-            validate(element, lastNameElement);
-        } else if (emailElement) {
-            validate(element, emailElement);
-        } else if (wrapperQueryElement) {
-            validate(element, wrapperQueryElement);
-        } else if (textareaElement) {
-            validate(element, textareaElement);
-        } else if (checkboxElement) {
-            validate(element, checkboxElement);
+
+const fieldConfig = {
+    email: {
+        regex: /.+/,
+        regexEmail: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        errorMsg: "This field is required",
+        errorEmailMsg: "Please enter a valid email address", 
+    },
+    default: {
+        regex: /.+/,
+        errorMsg: "This field is required"
+    },
+    radio: {
+        isValid: (fieldset) => !!fieldset.querySelector("input:checked"),
+        errorMsg: "Please select a query type"
+    },
+    checkbox: {
+        isValid: (input) => input.checked,
+        errorMsg: "To submit this form, please consent to being contacted"
+    }
+}
+
+function validateField (element) {
+    const fieldType = element.dataset.validate || 'default';
+    const config = fieldConfig[fieldType];
+    const parentElement = element.closest('.wrapper-value');
+    let isValid = false;
+    let validEmail = false;
+    let resultValid;
+
+    if (config.isValid) {
+        isValid = config.isValid(element); 
+        resultValid = {
+            isValid: isValid,
+            msg: config.errorMsg
         }
-    })
-    validSuccess = true;
-    for (const key in saveData) {
-        if (!saveData[key]) {
-            validSuccess = false;
+    } else if (fieldType === 'email') {
+        if (config.regex.test(element.value.trim())) {
+            isValid = config.regexEmail.test(element.value.trim());
+            resultValid = {
+                isValid: isValid,
+                msg: config.errorEmailMsg
+            }
+        } else {
+            isValid = config.regex.test(element.value.trim());
+            resultValid = {
+                isValid: isValid,
+                msg: config.errorMsg
+            }
+        }
+    } else {
+        isValid = config.regex.test(element.value.trim());
+        resultValid = {
+            isValid: isValid,
+            msg: config.errorMsg
         }
     }
-    checkValidSuccess(validSuccess);
+
+    handleError(parentElement, element, resultValid);
+
+    return isValid;
+}
+ 
+formContact.addEventListener('submit', function (e) {
+    e.preventDefault();
+    let isFormValid = true;
+    allWrapperValue.forEach(element => {
+        const checkValid = validateField(element.querySelector('.value-validate'));
+        isFormValid = isFormValid && checkValid;
+    })
+    checkValidSuccess(isFormValid);
 })
 
 formContact.addEventListener('input', function (e) {
-    handleError(e.target.closest('.wrapper-value'), false);
+    validateField(e.target.closest('.wrapper-value').querySelector('.value-validate'))
 })
 
-function validate (parentElement, validateElement) {   
-    if (validateElement.type === 'text') {
-        if (validateElement.value.trim()) {
-            if (validateElement.id === 'email') {
-                if (emailRegex.test(validateElement.value.trim())) {
-                    handleError(parentElement, validateElement, false, true);
-                    saveData.email = validateElement.value.trim();
-                } else {
-                    handleError(parentElement, validateElement, true, true);
-                }
-            } else {
-                handleError(parentElement, validateElement, false);
-                if (validateElement.id === 'first-name') {
-                    saveData.firstName = validateElement.value.trim();
-                }
-                if (validateElement.id === 'last-name') {
-                    saveData.lastName = validateElement.value.trim();
-                }
-            }
-        } 
-        else {
-            handleError(parentElement, validateElement, true);
-        }
-    } 
-    // else if (validateElement.type === 'email') {
-    //     if (validateElement.value.trim()) {
-    //         handleError(parentElement, false);
-    //     } else if (emailRegex.test(validateElement.value.trim())) {
-    //         handleError(parentElement, false, false);
-    //     } else {
-    //         handleError(parentElement, true);
-    //     }
-    // } 
-    else if (validateElement.classList.contains('wrapper-query-content')) {
-        if (validateElement.querySelector('input:checked')) {
-            handleError(parentElement, validateElement, false);
-            saveData.queryType = validateElement.querySelector('input:checked').value;
-        } else {
-            handleError(parentElement, validateElement, true);
-        }
-    } else if (validateElement.name === 'agree') {
-        if (validateElement.checked) {
-            handleError(parentElement, validateElement, false);
-            saveData.agree = true;
-        } else {
-            handleError(parentElement, validateElement, true);
-        }
-    } else if (validateElement.name === 'message') {
-        if (validateElement.value.trim()) {
-            handleError(parentElement, validateElement, false);
-            saveData.message = validateElement.value.trim();
-        } else {
-            handleError(parentElement, validateElement, true);
-        }
-    }
-
-}
-
-function handleError (element, validateElement, isError, errorEmail) {
+function handleError (element, validateElement, resultValid) {
     let spanElementError = element.querySelector('.error-msg')
-    let spanEmailElement = element.querySelector('.error-msg.error-msg-email')
     let elementShowError = null; 
 
-    if (errorEmail) {
-        elementShowError = spanEmailElement; 
-    } else {
-        elementShowError = spanElementError; 
-    }
-
     let fieldTyping = element.querySelector('.field-typing')
-    if (isError) {
+    if (!resultValid.isValid) {
         if (fieldTyping) {
             fieldTyping.classList.add('error-border');
         }
-        elementShowError.classList.remove('hidden');
-        validateElement.setAttribute('aria-invalid', true);
+        spanElementError.classList.remove('hidden');
+        spanElementError.textContent = `${resultValid.msg}`;
     } else {
         if (fieldTyping) {
             fieldTyping.classList.remove('error-border');
         }
-        elementShowError.classList.add('hidden');
-        validateElement.setAttribute('aria-invalid', false);
+        spanElementError.classList.add('hidden');
     }
 }
 
