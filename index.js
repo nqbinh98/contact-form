@@ -89,8 +89,6 @@ formContact.addEventListener('input', function (e) {
 
 function handleError (element, validateElement, resultValid) {
     let spanElementError = element.querySelector('.error-msg')
-    let elementShowError = null; 
-
     let fieldTyping = element.querySelector('.field-typing')
     if (!resultValid.isValid) {
         if (fieldTyping) {
